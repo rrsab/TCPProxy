@@ -5,8 +5,9 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
+ 
 
-# Make data base, printed on Fri May 20 20:07:38 2022
+# Make data base, printed on Sat May 21 17:57:05 2022
 
 # Variables
 
@@ -16,11 +17,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 ?F = $(notdir $?)
 # environment
 WSLENV = ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID
-# makefile (from 'Makefile', line 14)
+# makefile (from 'Makefile', line 4)
 OPTIONS = -pedantic -ansi -Wall -Werror $(OPTIMIZATION_OPT) -o
 # default
 .SHELLFLAGS := -c
-# makefile (from 'Makefile', line 16)
+# makefile (from 'Makefile', line 6)
 LINKER_OPT = -L/usr/lib -lstdc++ $(PTHREAD) -lboost_thread -lboost_system
 # environment
 VSCODE_LOG_NATIVE = false
@@ -52,12 +53,12 @@ MAKE_HOST := x86_64-pc-linux-gnu
 PATH = /home/salyce/.vscode-server/bin/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files (x86)/VMware/VMware Player/bin/:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files/Git/cmd:/mnt/c/Users/user1/AppData/Local/Microsoft/WindowsApps:/mnt/d/IntelliJ IDEA Community Edition 2022.1/bin:/mnt/d/CLion 2022.1.1/bin:/mnt/d/Microsoft VS Code/bin
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
-# makefile (from 'Makefile', line 15)
+# makefile (from 'Makefile', line 5)
 PTHREAD = -lpthread
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-1e43818c-96c1-4ab7-adc2-c2efa382b6c5.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-e9cdd90c-26ad-4fa4-94f6-66e6337f1527.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -68,14 +69,14 @@ LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:
 VSCODE_PIPE_LOGGING = true
 # environment
 PWD = /mnt/c/Users/user1/CLionProjects/TcpProxy
-# makefile (from 'Makefile', line 13)
+# makefile (from 'Makefile', line 3)
 OPTIMIZATION_OPT = -O3
 # default
 .LOADED := 
 # environment
 WSL_INTEROP = /run/WSL/10_interop
 # environment
-WT_SESSION = 24367947-2507-48d8-8b4d-bed79f747718
+WT_SESSION = 1fa52293-4c4f-451c-b227-362d0a5f8dcd
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -83,7 +84,7 @@ HOME = /home/salyce
 # environment
 LOGNAME = salyce
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 ZSH = /home/salyce/.oh-my-zsh
 # environment
@@ -120,7 +121,7 @@ OLDPWD = /mnt/d/Microsoft VS Code
 .VARIABLES := 
 # automatic
 *F = $(notdir $*)
-# makefile (from 'Makefile', line 18)
+# makefile (from 'Makefile', line 8)
 BUILD_LIST = tcpproxy_server
 # makefile
 MAKEFLAGS = pqrR
@@ -136,7 +137,7 @@ MFLAGS = -pqrR
 VSCODE_HANDLES_SIGPIPE = true
 # environment
 WT_PROFILE_ID = {61c54bbd-c2c6-5271-96e7-009a87ff44bf}
-# makefile (from 'Makefile', line 12)
+# makefile (from 'Makefile', line 2)
 COMPILER = -c++
 # default
 MAKEFILES := 
@@ -173,9 +174,9 @@ WSL_DISTRO_NAME = Ubuntu
 
 # Directories
 
-# . (device 46, inode 12103423998603292): 12 files, no impossibilities.
+# . (device 46, inode 12103423998603292): 11 files, no impossibilities.
 
-# 12 files, no impossibilities in 1 directories.
+# 11 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -201,14 +202,14 @@ all: tcpproxy_server
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-19 21:36:18.8311688
+#  Last modified 2022-05-21 17:57:01.9099055
 #  File has been updated.
 #  Successfully updated.
 
 tcpproxy_server: tcpproxy_server.cpp
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: ''
-#  Last modified 2022-05-20 19:55:13.8085188
+#  File does not exist.
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # automatic
@@ -229,7 +230,7 @@ tcpproxy_server: tcpproxy_server.cpp
 # ? := tcpproxy_server.cpp
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=2/16=12%
-#  recipe to execute (from 'Makefile', line 23):
+#  recipe to execute (from 'Makefile', line 13):
 	$(COMPILER) $(OPTIONS) tcpproxy_server tcpproxy_server.cpp $(LINKER_OPT)
 
 # Not a target:
@@ -242,20 +243,20 @@ clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 29):
-	rm -f core *.o *.bak *~ *stackdump *
+#  recipe to execute (from 'Makefile', line 19):
+	rm -f core *.o *.bak *~ *stackdump *#
 
 strip_bin:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 26):
+#  recipe to execute (from 'Makefile', line 16):
 	strip -s tcpproxy
 
 # Not a target:
 tcpproxy_server.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-20 19:55:44.6476618
+#  Last modified 2022-05-21 17:49:04.5828661
 #  File has been updated.
 #  Successfully updated.
 
@@ -267,12 +268,12 @@ tcpproxy_server.cpp:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 19 / storage = 204 B / avg = 10 B
-# current buf: size = 8162 B / used = 204 B / count = 19 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 19 / storage = 190 B / avg = 10 B
+# current buf: size = 8162 B / used = 190 B / count = 19 / avg = 10 B
 
-# strcache performance: lookups = 32 / hit rate = 40%
+# strcache performance: lookups = 31 / hit rate = 38%
 # hash-table stats:
-# Load=19/8192=0%, Rehash=0, Collisions=1/32=3%
-# Finished Make data base on Fri May 20 20:07:38 2022
+# Load=19/8192=0%, Rehash=0, Collisions=1/31=3%
+# Finished Make data base on Sat May 21 17:57:05 2022
 
  

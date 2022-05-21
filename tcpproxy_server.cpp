@@ -3,12 +3,15 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <ctime>
 
 #include <boost/shared_ptr.hpp>
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/bind.hpp>
+//#define BOOST_ASIO_ENABLE_HANDLER_TRACKING
 #include <boost/asio.hpp>
 #include <boost/thread/mutex.hpp>
+#include <boost/lexical_cast.hpp>
 
 
 namespace tcp_proxy
@@ -22,9 +25,10 @@ namespace tcp_proxy
       typedef ip::tcp::socket socket_type;
       typedef boost::shared_ptr<bridge> ptr_type;
 
-      bridge(boost::asio::io_service& ios)
+      bridge(boost::asio::io_service& ios, std::string filename_log)
       : downstream_socket_(ios),
-        upstream_socket_  (ios)
+        upstream_socket_  (ios),
+        filename_log_(filename_log)
       {}
 
       socket_type& downstream_socket()
@@ -81,28 +85,14 @@ namespace tcp_proxy
          Section A: Remote Server --> Proxy --> Client
          Process data recieved from remote sever then send to client.
       */
-
-      // void log_in(unsigned char upstream_data1_[8192])
-      // {
-      //       std::string filename_in = "log_shrubbery";
-      //       std::ofstream output1(filename_in.c_str());                      
-      //       output1 << downstream_data_ << std::endl;
-      //       output1.close();
-      //       // std::fstream output = std::fstream("data.bin", std::ios_base::out | std::ios_base::trunc | std::ios_base::binary);
-	   //       // if (!_proto_responses.SerializeToOstream(&output))
-	   //       // {
-		//       //    std::cerr << "Ошибка записи данных ответа." << std::endl;
-	   //       // }
-	   //       // output.close();
-      // }
       // Read from remote server complete, now send data to client
       void handle_upstream_read(const boost::system::error_code& error,
                                 const size_t& bytes_transferred)
       {
          if (!error)
          {
-            //log_out(downstream_data_);
-            log_out(upstream_data_);
+
+            write_log(downstream_socket_, "R->P->C where", upstream_data_, bytes_transferred);
             async_write(downstream_socket_,
                  boost::asio::buffer(upstream_data_,bytes_transferred),
                  boost::bind(&bridge::handle_downstream_write,
@@ -125,7 +115,6 @@ namespace tcp_proxy
                       shared_from_this(),
                       boost::asio::placeholders::error,
                       boost::asio::placeholders::bytes_transferred));
-            log_out(upstream_data_);
          }
          else
             close();
@@ -144,7 +133,7 @@ namespace tcp_proxy
       {
          if (!error)
          {
-            log_out(downstream_data_);
+            write_log(upstream_socket_, "C->P->R where", downstream_data_, bytes_transferred);
             async_write(upstream_socket_,
                   boost::asio::buffer(downstream_data_,bytes_transferred),
                   boost::bind(&bridge::handle_upstream_write,
@@ -166,23 +155,41 @@ namespace tcp_proxy
                       shared_from_this(),
                       boost::asio::placeholders::error,
                       boost::asio::placeholders::bytes_transferred));
-            log_out(downstream_data_);
          }
          else
             close();
       }
       // *** End Of Section B ***
 
-      void log_out(unsigned char str[8192])
+      std::string print_time()
+      {
+         time_t rawtime;
+         struct tm * timeinfo;
+         char buffer [80];
+
+         time (&rawtime);
+         timeinfo = localtime (&rawtime);
+         strftime (buffer,80,"%c",timeinfo);
+         return buffer;
+      }
+
+      void write_log(socket_type &stream_socket_tmp, std::string name_stream, unsigned char str1 [8192], const size_t& bytes_transferred)
          {
-            std::string filename_log_ = "proxy.log";
-            output_log_.open(filename_log_.c_str(), std::ios::app);
+            //std::string filename_log_ = "tcpproxy.log";
+            std::string name_func = boost::lexical_cast<std::string>(stream_socket_tmp.local_endpoint());
+            std::string str;
+            for (size_t i = 0; i < bytes_transferred; i++)
+            {
+               str += str1[i];
+            }
+
+            output_log_.open(filename_log_.c_str(), std::ios::app | std::ios::binary);
             if (!output_log_.is_open()) 
             {
                std::cerr << "Cannot open \"" << filename_log_ << "\"" << std::endl;
                return ;
             }
-            output_log_ << str << std::endl;
+            output_log_ << print_time() << " | " << name_stream << " | " << name_func << " | " << str << std::endl;
             output_log_.close();
          }
 
@@ -212,6 +219,8 @@ namespace tcp_proxy
 
       std::ofstream output_log_;
 
+      std::string filename_log_;
+
 
    public:
 
@@ -230,17 +239,12 @@ namespace tcp_proxy
            upstream_host_(upstream_host),
            filename_log_(filename_log)
          {}
-         // ~acceptor()
-         // {
-         //    output_log_.close();
-         // }
-
 
          bool accept_connections()
          {
             try
             {
-               session_ = boost::shared_ptr<bridge>(new bridge(io_service_));
+               session_ = boost::shared_ptr<bridge>(new bridge(io_service_, filename_log_));
 
                acceptor_.async_accept(session_->downstream_socket(),
                     boost::bind(&acceptor::handle_accept,
@@ -301,6 +305,7 @@ int main(int argc, char* argv[])
    const std::string local_host      = argv[1];
    const std::string forward_host    = argv[3];
    const std::string filename_log    = "tcpproxy.log";
+
 
    boost::asio::io_service ios;
 
