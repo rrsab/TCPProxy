@@ -1,3 +1,0 @@
-C:/Users/user1/CLionProjects/TcpProxy/cmake-build-debug/CMakeFiles/TcpProxy.dir
-C:/Users/user1/CLionProjects/TcpProxy/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/user1/CLionProjects/TcpProxy/cmake-build-debug/CMakeFiles/rebuild_cache.dir
